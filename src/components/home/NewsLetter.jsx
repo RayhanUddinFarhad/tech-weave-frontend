@@ -23,7 +23,7 @@ const NewsLetter = () => {
                         className="text-gray-500 w-full p-3 rounded-md border outline-none focus:border-indigo-600"
                     />
                     <button
-                        className="w-full mt-3 px-5 py-3 rounded-md text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 duration-150 outline-none shadow-md focus:shadow-none focus:ring-2 ring-offset-2 ring-indigo-600 sm:mt-0 sm:ml-3 sm:w-auto"
+                        className="  rounded-md button-primary"
                     >
                         Subscribe
                     </button>
