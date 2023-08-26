@@ -24,6 +24,20 @@ const ManagePost = () => {
 
         
     }
+    const handleApprove = (id) => {
+
+        axios.patch (`http://localhost:5000/post/${id}`)
+        .then (res => {
+            console.log(res);
+            refetch()
+        })
+        .catch (err => {
+            console.log(err);
+        })
+
+
+        
+    }
     return (
         <>
 
@@ -44,7 +58,7 @@ const ManagePost = () => {
                                         <p className='badge badge-success '>{post?.status}</p>
                                         <div className="card-actions justify-end">
                                             <button onClick={() => handleDelete(post?._id)} className="btn btn-error">Delete</button>
-                                            <button className="btn btn-success">Approve</button>
+                                            <button onClick={() => handleApprove(post?._id)} className="btn btn-success">Approve</button>
                                         </div>
                                     </div>
                                 </div></>
