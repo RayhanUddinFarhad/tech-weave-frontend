@@ -1,12 +1,16 @@
 'use client'
+import { AuthContext } from '@/context/AuthProvider';
+import { updateProfile } from 'firebase/auth';
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 
 
 
 const SignIn = () => {
+
+    const {googleLogin, signUp} = useContext(AuthContext)
 
     const { register, handleSubmit } = useForm();
     const image_key = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMAGE_KEY}`;
@@ -32,11 +36,51 @@ const SignIn = () => {
                 const imageURL = imageResponse?.data?.display_url
 
                 console.log(imageURL);
+
+
+
+                signUp (data.email, data.password)
+                .then (res => {
+                    const user = res.user
+
+                    updateProfile (user, {
+                        displayName : data?.name,
+                        photoURL : imageURL
+
+
+                    })
+                })
+                .catch (err => {
+
+
+                    console.log(err.message);
+                 })
              }
         })
 
 
     };
+
+    const handleGoogleLogin = () => {
+
+
+        googleLogin()
+        .then (res => {
+
+            const user = res.user
+        })
+        .catch (err => {
+
+            console.log(err.message);
+        })
+
+
+    }
+
+
+
+
+
     return (
         <main className="w-full h-screen flex flex-col items-center justify-center  sm:px-4">
         <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
@@ -48,7 +92,7 @@ const SignIn = () => {
             </div>
             <div className="bg-gray-100 shadow p-4 py-6 space-y-8 sm:p-6 sm:rounded-lg">
                 <div className="grid grid-cols-3 gap-x-3">
-                    <button className="flex items-center justify-center py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100">
+                    <button onClick={() => handleGoogleLogin()} className="flex items-center justify-center py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100">
                         <svg className="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_17_40)">
                                 <path d="M47.532 24.5528C47.532 22.9214 47.3997 21.2811 47.1175 19.6761H24.48V28.9181H37.4434C36.9055 31.8988 35.177 34.5356 32.6461 36.2111V42.2078H40.3801C44.9217 38.0278 47.532 31.8547 47.532 24.5528Z" fill="#4285F4" />
