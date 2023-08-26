@@ -3,18 +3,25 @@ import { AuthContext } from '@/context/AuthProvider';
 import axios from 'axios';
 import { updateProfile } from 'firebase/auth';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 
 
 
 const SignIn = () => {
+    const [error , setError] = useState('')
+    const [isPasswordHidden, setPasswordHidden] = useState(true)
+
 
     const {googleLogin, signUp} = useContext(AuthContext)
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset  } = useForm();
     const image_key = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMAGE_KEY}`;
+
+    const router = useRouter()
 
 
     const onSubmit = async(data) => {
@@ -50,6 +57,9 @@ const SignIn = () => {
 
 
                     })
+                    reset()
+
+                    router.push('/')
 
                     axios.post(`http://localhost:5000/users`, {
                         name : data?.name,
@@ -58,9 +68,15 @@ const SignIn = () => {
                     })
                     .then (res => {
                         console.log(res);
+                        Swal.fire(
+                            'Hey! Congo!',
+                            'Your account created successfully',
+                            'success'
+                          )
                     })
                     .catch (err => {
                         console.log(err);
+                        setError(err)
                     })
 
 
@@ -72,6 +88,7 @@ const SignIn = () => {
 
 
                     console.log(err.message);
+                    setError(err.message)
                  })
              }
         })
@@ -98,12 +115,14 @@ const SignIn = () => {
             })
             .catch (err => {
                 console.log(err);
+                setError(err)
             })
 
         })
         .catch (err => {
 
             console.log(err.message);
+            setError(err)
         })
 
 
@@ -186,6 +205,8 @@ const SignIn = () => {
                         />
                     </div>
 
+                    <p className='text-error'>{error}</p>
+
                     <div>
                         <label className="font-medium">
                             Name
@@ -216,12 +237,25 @@ const SignIn = () => {
                             Password
                         </label>
                         <input
-                            type="password"
-                            required
-                            {...register('password')}
+                                    type= {isPasswordHidden ? `text` : `password`}
+                                    required
+                            {...register('password',  {
+                                required: "Password is required",
+                                minLength: {
+                                    value: 6,
+                                    message: "Password must be at least 6 characters",
+                                },
+                                pattern: {
+                                    value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+                                    message: "Password must contain at least one capital letter and one special character",
+                                },
+                            })}
+
 
                             className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                         />
+                                                        {errors.password && <p className='text-error'>{errors.password.message}</p>}
+
                     </div>
                     <button
                         className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"

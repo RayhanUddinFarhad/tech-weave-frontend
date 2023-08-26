@@ -1,6 +1,7 @@
 'use client'
 import usePosts from '@/hooks/usePosts';
 import axios from 'axios';
+import Link from 'next/link';
 import React from 'react';
 
 const ManagePost = () => {
@@ -59,6 +60,7 @@ const ManagePost = () => {
                                         <div className="card-actions justify-end">
                                             <button onClick={() => handleDelete(post?._id)} className="btn btn-error">Delete</button>
                                             <button onClick={() => handleApprove(post?._id)} className="btn btn-success">Approve</button>
+                                            <Link href={`/posts/${post._id}`} className="btn btn-success">Details</Link>
                                         </div>
                                     </div>
                                 </div></>
