@@ -33,7 +33,7 @@ const AuthProvider = ({children}) => {
 
 
 
-        return signInWithRedirect(auth, provider)
+        return signInWithPopup(auth, provider)
     }
 
     const logOut = () => {

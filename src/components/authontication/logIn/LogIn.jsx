@@ -1,5 +1,6 @@
 'use client'
 import { AuthContext } from '@/context/AuthProvider';
+import axios from 'axios';
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,6 +21,19 @@ const handleSubmitLogIn = (data) => {
     .then (res => {
 
         const user = res.user
+
+        axios.post(`http://localhost:5000/users`, {
+            name : data?.name,
+            photo : imageURL,
+            email : data?.email
+        })
+        .then (res => {
+            console.log(res);
+        })
+        .catch (err => {
+            console.log(err);
+        })
+
     })
     .catch ( err => {
         console.log(err.message);
