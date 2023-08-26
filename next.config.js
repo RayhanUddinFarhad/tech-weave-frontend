@@ -3,7 +3,7 @@ const nextConfig = {
 
 
     images: {
-        domains: ['images.unsplash.com', 'https://api.uifaces.co', 'https://randomuser.me'],
+        domains: ['images.unsplash.com', 'https://api.uifaces.co', 'https://randomuser.me', 'https://img.freepik.com'],
         unoptimized  : true,
 
         remotePatterns: [

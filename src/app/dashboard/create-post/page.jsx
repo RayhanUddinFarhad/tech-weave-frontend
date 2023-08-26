@@ -1,13 +1,18 @@
-import MainContent from '@/components/dashboard/MainContent';
-import React from 'react';
 
-const page = () => {
+
+import MainContent from '@/components/dashboard/MainContent';
+import Image from 'next/image';
+import React from 'react';
+import CreatePost from '@/components/dashboard/userDashboard/CreatePost';
+
+const Page = () => {
+ 
+
     return (
         <MainContent>
-
-            create post
+            <CreatePost></CreatePost>
         </MainContent>
     );
 };
 
-export default page;
+export default Page;
