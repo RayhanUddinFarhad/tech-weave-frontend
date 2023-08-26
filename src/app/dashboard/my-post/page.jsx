@@ -1,4 +1,5 @@
 import MainContent from '@/components/dashboard/MainContent';
+import MyPosts from '@/components/dashboard/userDashboard/MyPosts';
 import React from 'react';
 
 const page = () => {
@@ -6,9 +7,7 @@ const page = () => {
         <MainContent>
 
 
-            <div>
-                My post
-            </div>
+            <MyPosts></MyPosts>
         </MainContent>
     );
 };

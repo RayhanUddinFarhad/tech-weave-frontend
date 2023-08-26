@@ -1,9 +1,10 @@
 'use client'
+import { AuthContext } from '@/context/AuthProvider';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 const MainContent = ({ children }) => {
-
+const {user} = useContext(AuthContext)
 
     const [admin, isadmin] = useState(true)
     return (
@@ -16,6 +17,7 @@ const MainContent = ({ children }) => {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                <h1>{user?.email}</h1>
                 {
                     admin ? <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
                         {/* Sidebar content here */}
