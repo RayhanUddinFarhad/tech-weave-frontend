@@ -13,7 +13,7 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
     const [isAdmin] = useIsAdmin(user?.email)
-    
+
 
 
 
@@ -63,23 +63,34 @@ const Navbar = () => {
                 </div>
                 <div className={`flex-1 items-center mt-8 md:mt-0 md:flex ${state ? 'block' : 'hidden'} `}>
                     <ul className="justify-center items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
-                        
-                                    <li  className="text-gray-700 hover:text-gray-900">
-                                        
-                                        <Link href={`${isAdmin === 'admin' ? 
-                                        '/dashboard/admin-home' : '/dashboard/user-home'}`} className="block">
-                                            Dashboard
-                                        </Link>
-                                    </li>
-                                
+
+
+                        <li className="text-gray-700 hover:text-gray-900">
+                            <Link href='/'>Home</Link>
+                        </li>
+                        <li className="text-gray-700 hover:text-gray-900">
+                            <Link href='/'>Blogs</Link>
+                        </li>
+                        <li className="text-gray-700 hover:text-gray-900">
+                            <Link href='/'>About Us</Link>
+                        </li>
+
+                        <li className="text-gray-700 hover:text-gray-900">
+
+                            <Link href={`${isAdmin?.role === 'admin' ?
+                                '/dashboard/admin-home' : '/dashboard/user-home'}`} className="block">
+                                Dashboard
+                            </Link>
+                        </li>
+
                     </ul>
                     <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
 
-                       
+
                         {
                             user ? <img alt="" src={user?.photoURL} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" /> : <Link href='/log-in' className="block text-gray-700 hover:text-gray-900">
-                            Log in
-                        </Link> 
+                                Log in
+                            </Link>
                         }
                         {
                             user ? <button onClick={() => logOut()} className='button-primary '>Log Out</button> : <Link href='/sign-in' className="flex items-center justify-center gap-x-1 rounded-full button-primary">
