@@ -1,12 +1,12 @@
 import { AuthContext } from '@/context/AuthProvider';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const Modal = ({ id, title, description, category, postImage, refetch }) => {
     const { register, handleSubmit } = useForm(); // Initialize react-hook-form
 
-
+const [updated , setUpdated] = useState(false)
 
     const onSubmit = async (data) => {
 
@@ -25,7 +25,7 @@ const Modal = ({ id, title, description, category, postImage, refetch }) => {
             title: data?.title,
             description: data?.description,
             category: data?.category,
-            photo: data?.photo,
+            postImage: data?.photo,
 
 
 
@@ -35,6 +35,7 @@ const Modal = ({ id, title, description, category, postImage, refetch }) => {
             .then(res => {
                 console.log(res);
                 refetch()
+                setUpdated(true)
             })
             .catch(error => {
                 console.log(error);
@@ -105,12 +106,18 @@ const Modal = ({ id, title, description, category, postImage, refetch }) => {
                                             placeholder='photo URL'
                                         />
                                     </div>
-                                    <button
+                                    {
+                                        updated ? <button
+                                        disabled
+                                        className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+                                    >
+Updated                                    </button> : <button
                                         type="submit"
                                         className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                                     >
                                         Post
                                     </button>
+                                    }
                                 </form>
                             </div>
                         </div>

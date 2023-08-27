@@ -5,6 +5,7 @@ import useIsAdmin from '@/hooks/useIsAdmin';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
+import { FaCode } from 'react-icons/fa';
 
 const Navbar = () => {
 
@@ -35,14 +36,10 @@ const Navbar = () => {
         <nav className={` pb-5 md:text-sm ${state ? "shadow-lg rounded-xl border mx-2 mt-2 md:shadow-none md:border-none md:mx-2 md:mt-0" : ""}`}>
             <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
                 <div className="flex items-center justify-between py-5 md:block">
-                    <a >
-                        <Image
-                            src="https://www.floatui.com/logo.svg"
-                            width={120}
-                            height={50}
-                            alt="Float UI logo"
-                        />
-                    </a>
+                   <Link href='/'>
+
+                    <h1 className='text-2xl font-extrabold text-nowrap flex items-center'>Tech <FaCode className='text-red-500' ></FaCode><span className='text-gradient-primary'>Weave</span></h1>
+                   </Link>
                     <div className="md:hidden">
                         <button className="menu-btn text-gray-500 hover:text-gray-800"
                             onClick={() => setState(!state)}
@@ -69,7 +66,7 @@ const Navbar = () => {
                             <Link href='/'>Home</Link>
                         </li>
                         <li className="text-gray-700 hover:text-gray-900">
-                            <Link href='/'>Blogs</Link>
+                            <Link href='/posts'>Blogs</Link>
                         </li>
                         <li className="text-gray-700 hover:text-gray-900">
                             <Link href='/'>About Us</Link>
