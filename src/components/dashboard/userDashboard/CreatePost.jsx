@@ -1,12 +1,14 @@
 'use client'
 import { AuthContext } from '@/context/AuthProvider';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const CreatePost = () => {
-    const { register, handleSubmit } = useForm(); // Initialize react-hook-form
+    const { register, handleSubmit, reset } = useForm(); // Initialize react-hook-form
     const {user} = useContext(AuthContext)
+    const [posted, setPostd] = useState(false)
+    const [error, setError] = useState('')
     const image_key = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMAGE_KEY}`;
 
 
@@ -51,9 +53,12 @@ const CreatePost = () => {
                 })
                 .then (res => {
                     console.log(res);
+                    reset()
+                   setPostd(true)
                 })
                 .catch (error  => {
-                    console.log(error);
+                    console.log(error.message);
+                    setError(error.message)
 
                 })
 
@@ -62,6 +67,7 @@ const CreatePost = () => {
 
 
                     console.log(err.message);
+                    setError(error.message)
                  })
              }
         })
@@ -72,13 +78,13 @@ const CreatePost = () => {
         <main className="w-full p-5 flex flex-col items-center justify-center bg-gray-50 sm:px-4">
         <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
             <div className="text-center">
-                <img src="https://floatui.com/logo.svg" width={150} className="mx-auto" />
                 <div className="mt-5 space-y-2">
                     <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Create a post</h3>
                 </div>
             </div>
             <div className="bg-white shadow p-4 py-6 sm:p-6 sm:rounded-lg">
                 <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+                    <p className='text-error'>{error}</p>
                     <div>
                         <label className="font-medium">Title</label>
                         <input
@@ -118,12 +124,19 @@ const CreatePost = () => {
                             className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                         />
                     </div>
-                    <button
+                    {
+                        posted ? <button
+                        className="btn btn-success w-full"
+                        disabled
+                    >
+                        Successfully posted
+                    </button> :<button
                         type="submit"
                         className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                     >
                         Post
                     </button>
+                    }
                 </form>
             </div>
         </div>

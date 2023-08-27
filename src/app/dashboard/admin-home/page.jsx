@@ -1,12 +1,13 @@
 import MainContent from '@/components/dashboard/MainContent';
+import AdminDashboard from '@/components/dashboard/adminDashboard/AdminDashboard';
 import React from 'react';
 
 const page = () => {
     return (
-       <MainContent>
+        <MainContent>
 
-        I am admin home
-       </MainContent>
+            <AdminDashboard></AdminDashboard>     
+              </MainContent>
     );
 };
 

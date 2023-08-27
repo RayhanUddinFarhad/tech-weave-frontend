@@ -74,12 +74,12 @@ const Navbar = () => {
                     </ul>
                     <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
 
+                       
                         {
-                            user && <img alt="" src={user?.photoURL} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
-                        }
-                        <a className="block text-gray-700 hover:text-gray-900">
+                            user ? <img alt="" src={user?.photoURL} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" /> : <Link href='/log-in' className="block text-gray-700 hover:text-gray-900">
                             Log in
-                        </a>
+                        </Link> 
+                        }
                         {
                             user ? <button onClick={() => logOut()} className='button-primary '>Log Out</button> : <Link href='/sign-in' className="flex items-center justify-center gap-x-1 rounded-full button-primary">
                                 Sign in

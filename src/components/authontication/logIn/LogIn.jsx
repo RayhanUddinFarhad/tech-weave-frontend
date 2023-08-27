@@ -2,14 +2,19 @@
 import { AuthContext } from '@/context/AuthProvider';
 import axios from 'axios';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const LogIn = () => {
     const {logIn} = useContext(AuthContext)
+    const [error, setError] = useState('')
+    const router = useRouter()
 
-    const { register, handleSubmit } = useForm();
 
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+    const [isPasswordHidden, setPasswordHidden] = useState(false)
 
 
 
@@ -24,19 +29,21 @@ const handleSubmitLogIn = (data) => {
 
         axios.post(`http://localhost:5000/users`, {
             name : data?.name,
-            photo : imageURL,
             email : data?.email
         })
         .then (res => {
             console.log(res);
+            router.push('/')
         })
         .catch (err => {
             console.log(err);
+            setError(err.message)
         })
 
     })
     .catch ( err => {
         console.log(err.message);
+        setError(err.message)
     })
 
 
@@ -70,17 +77,31 @@ const handleSubmitLogIn = (data) => {
                             className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                         />
                     </div>
-                    <div>
-                        <label className="font-medium">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            required
-                            {...register('password')}
+                    <p className='text-error'>{error}</p>
 
-                            className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                        />
+                    <div>
+                    <label className="font-medium">
+                                Password
+                            </label>
+                            <input
+                                type={isPasswordHidden ? `text` : `password`}
+                                required
+                                {...register('password', {
+                                    required: "Password is required",
+                                    minLength: {
+                                        value: 6,
+                                        message: "Password must be at least 6 characters",
+                                    },
+                                    pattern: {
+                                        value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+                                        message: "Password must contain at least one capital letter and one special character",
+                                    },
+                                })}
+
+
+                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                            />
+                            {errors.password && <p className='text-error'>{errors.password.message}</p>}
                     </div>
                     <button
                         className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"

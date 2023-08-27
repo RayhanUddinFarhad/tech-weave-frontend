@@ -5,6 +5,7 @@ import Footer from '@/components/shared/Footer'
 import AuthProvider from '@/context/AuthProvider'
 import ReactQueryProvider from './ReactQueryProvider'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
