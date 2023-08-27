@@ -1,6 +1,7 @@
 'use client'
 
 import { AuthContext } from '@/context/AuthProvider';
+import useIsAdmin from '@/hooks/useIsAdmin';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
@@ -11,14 +12,16 @@ const Navbar = () => {
     const [state, setState] = useState(false)
 
     const { user, logOut } = useContext(AuthContext)
+    const [isAdmin] = useIsAdmin(user?.email)
+    
 
 
 
 
     const navigation = [
         { title: "Home", path: "/" },
-        { title: "Blog", path: "javascript:void(0)" },
-        { title: "About Us", path: "javascript:void(0)" },
+        { title: "Blog", path: "" },
+        { title: "About Us", path: "" },
         { title: "Dashboard", path: "/dashboard/home" }
     ]
 
@@ -60,17 +63,15 @@ const Navbar = () => {
                 </div>
                 <div className={`flex-1 items-center mt-8 md:mt-0 md:flex ${state ? 'block' : 'hidden'} `}>
                     <ul className="justify-center items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
-                        {
-                            navigation.map((item, idx) => {
-                                return (
-                                    <li key={idx} className="text-gray-700 hover:text-gray-900">
-                                        <Link href={item.path} className="block">
-                                            {item.title}
+                        
+                                    <li  className="text-gray-700 hover:text-gray-900">
+                                        
+                                        <Link href={`${isAdmin === 'admin' ? 
+                                        '/dashboard/admin-home' : '/dashboard/user-home'}`} className="block">
+                                            Dashboard
                                         </Link>
                                     </li>
-                                )
-                            })
-                        }
+                                
                     </ul>
                     <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
 
