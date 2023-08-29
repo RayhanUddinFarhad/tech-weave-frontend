@@ -61,7 +61,7 @@ const SignIn = () => {
 
                             router.push('/')
 
-                            axios.post(`http://localhost:5000/users`, {
+                            axios.post(`https://tech-weave-backend.onrender.com/users`, {
                                 name: data?.name,
                                 photo: imageURL,
                                 email: data?.email
@@ -105,13 +105,14 @@ const SignIn = () => {
                 const user = res.user
 
 
-                axios.post(`http://localhost:5000/users`, {
+                axios.post(`https://tech-weave-backend.onrender.com/users`, {
                     name: user?.displayName,
                     photo: user?.photoURL,
                     email: user?.email
                 })
                     .then(res => {
                         console.log(res);
+                        router.push('/')
                     })
                     .catch(err => {
                         console.log(err);

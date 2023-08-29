@@ -4,9 +4,12 @@ import { AuthContext } from '@/context/AuthProvider';
 import useMyPost from '@/hooks/useMyPost';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import moment from 'moment/moment';
+import React, { useContext, useState } from 'react';
 
 const MyPosts = () => {
+    const [selectedItemId, setSelectedItemId] = useState(null); // State to track the selected item's ID
+
 
     const { user } = useContext(AuthContext)
 
@@ -14,18 +17,22 @@ const MyPosts = () => {
     const { isLoading, error, data: myposts = [], refetch } = useQuery({
         queryKey: ['myposts'],
         queryFn: () =>
-            fetch(`http://localhost:5000/my-post/${user?.email}`).then((res) =>
+            fetch(`https://tech-weave-backend.onrender.com/my-post/${user?.email}`).then((res) =>
                 res.json()
 
             
             ),
     });
 
+    const handleEdit = (id) => {
+        setSelectedItemId(id); // Set the selected item's ID when the "Edit" button is clicked
+    };
+
 
 
     const handleDelete = (id) => {
 
-        axios.delete(`http://localhost:5000/post/${id}`)
+        axios.delete(`https://tech-weave-backend.onrender.com/post/${id}`)
             .then(res => {
                 console.log(res);
                 refetch()
@@ -79,14 +86,17 @@ const MyPosts = () => {
                                             {item.status}
                                         </span>
                                     </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">{item?.created_at}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <small>{moment(item?.created_at).format('D-MM-yyy')}</small>
+                                        </td>
 
                                         <td className="text-right px-6 whitespace-nowrap">
 
 
 
 
-                                            <label className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg" htmlFor="my_modal_6" >
+                                            <label 
+                                             onClick={() => handleEdit(item?._id)} className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg" htmlFor="my_modal_6" >
 
                                                 Edit
                                             </label>
@@ -96,12 +106,8 @@ const MyPosts = () => {
                                             </button>
                                         </td>
                                     </tr>
-                                    <Modal id={item?._id} title={item?.title}
-                                        description={item?.description}
-                                        category={item?.category}
-
-                                        postImage={item?.postImage}
-                                        refetch = {refetch}
+                                    <Modal id={selectedItemId} 
+                                    refetch = {refetch}
 
 
                                     ></Modal>

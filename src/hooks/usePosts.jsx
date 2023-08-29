@@ -5,7 +5,7 @@ const usePosts = () => {
     const { isLoading, error, data : posts = [], refetch } = useQuery({
         queryKey: ['posts'],
         queryFn: () =>
-          fetch('http://localhost:5000/post').then(
+          fetch('https://tech-weave-backend.onrender.com/post').then(
             (res) => res.json(),
           ),
       })

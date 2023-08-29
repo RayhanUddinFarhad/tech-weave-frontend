@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useContext, useState } from 'react';
 import lottie from 'lottie-web';
 import { defineElement } from 'lord-icon-element';
-import { FaChartLine, FaColumns, FaFile, FaListAlt, FaPen, FaUsers } from "react-icons/fa";
+import { FaArrowLeft, FaChartLine, FaColumns, FaFile, FaListAlt, FaPen, FaUsers } from "react-icons/fa";
 import useIsAdmin from '@/hooks/useIsAdmin';
 
 // define "lord-icon" custom element with default properties
@@ -24,13 +24,17 @@ const MainContent = ({ children }) => {
 
     return (
         <div className="drawer h-full lg:drawer-open bg-white">
+            <label htmlFor="my-drawer-2" className="btn btn-primary  absolute  drawer-button lg:hidden top-0 text-white">
+
+<FaArrowLeft/> Open Tab
+</label>
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content ">
                 {children}
-                <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                
 
             </div>
-            <div className="drawer-side ">
+            <div className="drawer-side  ">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 {
                     isAdmin.role == 'admin' ? <ul className="menu p-4 w-80 text-lg space-y-5 font-bold min-h-full bg-base-200 text-base-content">

@@ -4,6 +4,7 @@ import { AuthContext } from '@/context/AuthProvider';
 import useIsAdmin from '@/hooks/useIsAdmin';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react';
 import { FaCode } from 'react-icons/fa';
 
@@ -14,6 +15,7 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
     const [isAdmin] = useIsAdmin(user?.email)
+    const pathname = usePathname()
 
 
 
@@ -62,23 +64,23 @@ const Navbar = () => {
                     <ul className="justify-center items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
 
 
-                        <li className="text-gray-700 hover:text-gray-900">
+                        <li className={pathname === '/' ? " border-red-500 border-b-4" : "text-gray-700 hover:text-gray-900"}>
                             <Link href='/'>Home</Link>
                         </li>
-                        <li className="text-gray-700 hover:text-gray-900">
+                        <li className={pathname === '/posts' ? " border-red-500 border-b-4" : "text-gray-700 hover:text-gray-900"}>
                             <Link href='/posts'>Blogs</Link>
                         </li>
                         <li className="text-gray-700 hover:text-gray-900">
                             <Link href='/'>About Us</Link>
                         </li>
 
-                        <li className="text-gray-700 hover:text-gray-900">
-
-                            <Link href={`${isAdmin?.role === 'admin' ?
-                                '/dashboard/admin-home' : '/dashboard/user-home'}`} className="block">
+                        {
+                            user && <li className={(pathname === '/dashboard/admin-home' || pathname === '/dashboard/user-home') ? "border-red-500 border-b-4" : "text-gray-700 hover:text-gray-900"}>
+                            <Link href={`${isAdmin?.role === 'admin' ? '/dashboard/admin-home' : '/dashboard/user-home'}`} className="block">
                                 Dashboard
                             </Link>
                         </li>
+                        }
 
                     </ul>
                     <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">

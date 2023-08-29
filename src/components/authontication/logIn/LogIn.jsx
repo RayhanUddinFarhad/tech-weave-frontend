@@ -27,7 +27,7 @@ const handleSubmitLogIn = (data) => {
 
         const user = res.user
 
-        axios.post(`http://localhost:5000/users`, {
+        axios.post(`https://tech-weave-backend.onrender.com/users`, {
             name : data?.name,
             email : data?.email
         })

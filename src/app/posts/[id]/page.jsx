@@ -1,7 +1,9 @@
+import moment from 'moment';
 import Image from 'next/image';
 import React from 'react';
+import { FaCalendarAlt } from 'react-icons/fa';
 async function getData(id) {
-    const res = await fetch(`http://localhost:5000/post/${id}`, { cache: 'no-store' })
+    const res = await fetch(`https://tech-weave-backend.onrender.com/post/${id}`, { cache: 'no-store' })
     
     
     return res.json()
@@ -18,8 +20,8 @@ const page = async({params}) => {
 
             <img className='object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500 ' src= {data?.photo} alt="" />
             <p className='text-lg font-bold'>{data?.name}</p>
-            <p>{data?.created_at}</p>
-           </div>
+            <p className='flex items-center'> <FaCalendarAlt className='mr-3'></FaCalendarAlt>
+                                <small>{moment(data?.created_at).format('D-MM-yy')}</small></p>           </div>
 
 
            <img src= {data?.postImage} alt="" className='max-w-screen-lg max-h-96 mx-auto' />

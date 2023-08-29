@@ -5,7 +5,7 @@ const useUsers = () => {
     const { isLoading, error, data : users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: () =>
-          fetch('http://localhost:5000/users').then(
+          fetch('https://tech-weave-backend.onrender.com/users').then(
             (res) => res.json(),
           ),
       })

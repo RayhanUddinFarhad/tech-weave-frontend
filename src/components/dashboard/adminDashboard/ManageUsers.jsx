@@ -13,7 +13,7 @@ const ManageUsers = () => {
 
     const handlemakeAdmin = (email) => {
 
-        axios.patch (`http://localhost:5000/change-role/${email}`)
+        axios.patch (`https://tech-weave-backend.onrender.com/change-role/${email}`)
     .then (res => {
         console.log(res);
         refetch()

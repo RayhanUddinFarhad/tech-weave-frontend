@@ -3,6 +3,7 @@ import { AuthContext } from '@/context/AuthProvider';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 const CreatePost = () => {
     const { register, handleSubmit, reset } = useForm(); // Initialize react-hook-form
@@ -37,7 +38,7 @@ const CreatePost = () => {
 
             
 
-                    axios.post(`http://localhost:5000/post`, {
+                    axios.post(`https://tech-weave-backend.onrender.com/post`, {
                         name : user?.displayName,
                         email : user?.email,
                         photo : user?.photoURL,
@@ -54,8 +55,11 @@ const CreatePost = () => {
                 .then (res => {
                     console.log(res);
                     reset()
-                   setPostd(true)
-                })
+                    Swal.fire(
+                        'Good job!',
+                        'Your Post has been successfully uploaded! Wait for approve',
+                        'success'
+                      )                 })
                 .catch (error  => {
                     console.log(error.message);
                     setError(error.message)
@@ -124,19 +128,13 @@ const CreatePost = () => {
                             className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                         />
                     </div>
-                    {
-                        posted ? <button
-                        className="btn btn-success w-full"
-                        disabled
-                    >
-                        Successfully posted
-                    </button> :<button
+                   <button
                         type="submit"
                         className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                     >
                         Post
                     </button>
-                    }
+                    
                 </form>
             </div>
         </div>
