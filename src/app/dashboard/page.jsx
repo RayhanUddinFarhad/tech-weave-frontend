@@ -1,3 +1,4 @@
+'use client'
 import Dashboard from '@/components/dashboard/Dashboard';
 import MainContent from '@/components/dashboard/MainContent';
 import Link from 'next/link';
