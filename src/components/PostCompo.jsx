@@ -1,11 +1,10 @@
 'use client'
-import usePosts from '@/hooks/usePosts';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import PostCard from './PostCard';
-const Blogs = () => {
 
-  const [posts, refetch] = usePosts()
+const PostCompo = () => {
+    const [posts, refetch] = usePosts()
   const [tabIndex, setTabIndex] = useState(0);
 
 
@@ -125,4 +124,4 @@ Motivational?.map (post => <PostCard post={post} key={post?._id}></PostCard>)
     </>)
 };
 
-export default Blogs;
+export default PostCompo;

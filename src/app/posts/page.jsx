@@ -1,6 +1,7 @@
 'use client'
 
-import Blogs from "@/components/Blogs";
+import PostCompo from "@/components/PostCompo";
+
 
 
 
@@ -8,8 +9,7 @@ import Blogs from "@/components/Blogs";
  
 const page = () => {
   <>
-  <Blogs></Blogs>
-  
+<PostCompo></PostCompo>  
   </>
 };
 
