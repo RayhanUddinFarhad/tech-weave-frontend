@@ -1,17 +1,28 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 
 const useIsAdmin = (email) => {
-    const { isLoading, error, data : isAdmin = [], refetch } = useQuery({
-        queryKey: ['isAdmin'],
-        queryFn: () =>
-          fetch(`https://tech-weave-backend.onrender.com/users/${email}`).then(
-            (res) => res.json(),
-          ),
-      })
+    if (!email) {
+        throw new Error('Email is required for useIsAdmin hook.');
+    }
 
+    const { isLoading, error, data: isAdmin = false, refetch } = useQuery(
+        ['isAdmin', email], // Include email in the query key
+        async () => {
+            const response = await fetch(`https://tech-weave-backend.onrender.com/users/${email}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data.');
+            }
+            const userData = await response.json();
+            return userData.isAdmin || false;
+        }
+    );
 
-      return [isAdmin, refetch]
+    return {
+        isAdmin,
+        isLoading,
+        error,
+        refetch,
+    };
 };
 
 export default useIsAdmin;
