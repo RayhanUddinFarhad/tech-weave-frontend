@@ -1,11 +1,11 @@
 'use client'
 import { AuthContext } from '@/context/AuthProvider';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { useContext, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import React, { useContext } from 'react';
 import lottie from 'lottie-web';
 import { defineElement } from 'lord-icon-element';
-import { FaArrowLeft, FaChartLine, FaColumns, FaFile, FaListAlt, FaPen, FaUsers } from "react-icons/fa";
+import { FaArrowLeft, FaChartLine, FaFile, FaListAlt, FaPen, FaUsers } from "react-icons/fa";
 import useIsAdmin from '@/hooks/useIsAdmin';
 
 // define "lord-icon" custom element with default properties
@@ -13,7 +13,6 @@ defineElement(lottie.loadAnimation);
 
 const MainContent = ({ children }) => {
     const { user } = useContext(AuthContext)
-    const router = useRouter()
     const pathname = usePathname()
 
     const [isAdmin] = useIsAdmin(user?.email)

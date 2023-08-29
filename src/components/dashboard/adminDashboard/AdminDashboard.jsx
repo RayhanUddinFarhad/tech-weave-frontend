@@ -1,6 +1,5 @@
 'use client'
 import React, { useContext } from 'react';
-import Lottie, { LottiePlayer } from "lottie-react";
 import { AuthContext } from '@/context/AuthProvider';
 import { FaUsers } from 'react-icons/fa';
 import { FcLike, FcLineChart, FcSurvey } from "react-icons/fc";

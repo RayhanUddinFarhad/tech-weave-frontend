@@ -2,7 +2,6 @@
 import useUsers from '@/hooks/useUsers';
 import axios from 'axios';
 import React, { useEffect } from 'react';
-import useSWR from 'swr'
 
 const ManageUsers = () => {
 

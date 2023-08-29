@@ -1,7 +1,6 @@
 'use client'
 import Modal from '@/components/modals/Modal';
 import { AuthContext } from '@/context/AuthProvider';
-import useMyPost from '@/hooks/useMyPost';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import moment from 'moment/moment';
