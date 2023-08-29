@@ -1,7 +1,6 @@
 'use client'
 import Post from '@/components/Post';
 import PostCard from '@/components/PostCard';
-import Blogs from '@/components/blogs';
 import usePosts from '@/hooks/usePosts';
 import axios from 'axios';
 import Link from 'next/link';
