@@ -36,7 +36,7 @@ const MainContent = ({ children }) => {
             <div className="drawer-side  ">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 {
-                    isAdmin.role == 'admin' ? <ul className="menu p-4 w-80 text-lg space-y-5 font-bold min-h-full bg-base-200 text-base-content">
+                    isAdmin?.role == 'admin' ? <ul className="menu p-4 w-80 text-lg space-y-5 font-bold min-h-full bg-base-200 text-base-content">
                         {/* Sidebar content here */}
                         <li>  <Link href= '/dashboard/admin-home' className={pathname === '/dashboard/admin-home' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}><FaChartLine className='text-xl' /> Dashboard</Link></li>
 
