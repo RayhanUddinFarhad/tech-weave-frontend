@@ -3,13 +3,11 @@ import { AuthContext } from '@/context/AuthProvider';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useContext } from 'react';
-import lottie from 'lottie-web';
-import { defineElement } from 'lord-icon-element';
+
 import { FaArrowLeft, FaChartLine, FaFile, FaListAlt, FaPen, FaUsers } from "react-icons/fa";
 import useIsAdmin from '@/hooks/useIsAdmin';
 
 // define "lord-icon" custom element with default properties
-defineElement(lottie.loadAnimation);
 
 const MainContent = ({ children }) => {
     const { user } = useContext(AuthContext)
@@ -36,26 +34,26 @@ const MainContent = ({ children }) => {
             <div className="drawer-side  ">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 {
-                    isAdmin?.role == 'admin' ? <ul className="menu p-4 w-80 text-lg space-y-5 font-bold min-h-full bg-base-200 text-base-content">
+                    isAdmin?.role == 'admin' ? ( <ul className="menu p-4 w-80 text-lg space-y-5 font-bold min-h-full bg-base-200 text-base-content">
                         {/* Sidebar content here */}
-                        <li>  <Link href= '/dashboard/admin-home' className={pathname === '/dashboard/admin-home' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}><FaChartLine className='text-xl' /> Dashboard</Link></li>
+                        <li>  <Link href= '/dashboard/admin-home' ><a className={pathname === '/dashboard/admin-home' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}></a><FaChartLine className='text-xl' /> Dashboard</Link></li>
 
-                        <li><Link href='/dashboard/create-post' className={pathname === '/dashboard/create-post' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}>  <FaPen className='text-xl' /> Create a new post</Link></li>
+                        <li><Link href='/dashboard/create-post' > <a className={pathname === '/dashboard/create-post' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}></a>  <FaPen className='text-xl' /> Create a new post</Link></li>
 
-                        <li><Link href='/dashboard/my-post' className={pathname === '/dashboard/my-post' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}> <FaFile className='text-xl' /> My Post</Link></li>
-                        <li><Link href='/dashboard/admin-posts' className={pathname === '/dashboard/admin-posts' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}> <FaListAlt className='text-xl' /> Manage Posts</Link></li>
+                        <li><Link href='/dashboard/my-post' > <a className={pathname === '/dashboard/my-post' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}></a> <FaFile className='text-xl' /> My Post</Link></li>
+                        <li><Link href='/dashboard/admin-posts' > <a href="className={pathname === '/dashboard/admin-posts' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}"></a> <FaListAlt className='text-xl' />  Manage Posts</Link></li>
 
-                        <li><Link href='/dashboard/admin-manage-users' className={pathname === '/dashboard/admin-manage-users' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}> <FaUsers className='text-xl' /> Manage Users</Link></li>
-                    </ul>
+                        <li><Link href='/dashboard/admin-manage-users' > <a className={pathname === '/dashboard/admin-manage-users' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}></a> <FaUsers className='text-xl' />  Manage Users</Link></li>
+                    </ul> )
 
-                        : <ul className="menu p-4 w-80 text-lg space-y-5 font-bold min-h-full bg-base-200 text-base-content">
+                        : (<ul className="menu p-4 w-80 text-lg space-y-5 font-bold min-h-full bg-base-200 text-base-content">
                             {/* Sidebar content here */}
-                            <li>  <Link href= '/dashboard/user-home' className={pathname === '/dashboard/user-home' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}><FaChartLine className='text-xl' /> Dashboard</Link></li>
+                            <li>  <Link href= '/dashboard/user-home' > <a className={pathname === '/dashboard/user-home' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}></a> <FaChartLine className='text-xl' /> Dashboard</Link></li>
 
-                        <li><Link href='/dashboard/create-post' className={pathname === '/dashboard/create-post' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}>  <FaPen className='text-xl' /> Create a new post</Link></li>
+                        <li><Link href='/dashboard/create-post' > <a className={pathname === '/dashboard/create-post' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}></a>  <FaPen className='text-xl' /> Create a new post</Link></li>
 
-                        <li><Link href='/dashboard/my-post' className={pathname === '/dashboard/my-post' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}> <FaFile className='text-xl' /> My Post</Link></li>
-                        </ul>
+                        <li><Link href='/dashboard/my-post' > <a className={pathname === '/dashboard/my-post' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200' : ''}></a> <FaFile className='text-xl' />  My Post</Link></li>
+                        </ul>)
                 }
 
             </div>

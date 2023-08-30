@@ -12,7 +12,11 @@ const page = () => {
     return (
 
         <>
-<Dashboard></Dashboard>
+
+        {
+            typeof window !== 'undefined' && <Dashboard></Dashboard>
+
+        }
         
         </>
     );

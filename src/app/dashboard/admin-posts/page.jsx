@@ -5,11 +5,16 @@ import React from 'react';
 
 const page = () => {
     return (
-        <MainContent>
+        <>
+        {
+            typeof window !== 'undefined' && <MainContent>
 
             <ManagePost></ManagePost>
 
         </MainContent>
+        }
+        
+        </>
     );
 };
 

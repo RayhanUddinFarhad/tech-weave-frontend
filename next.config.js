@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 
+  presets: ['@next/babel'],
 
     images: {
         domains: ['images.unsplash.com', 'https://api.uifaces.co', 'https://randomuser.me', 'https://img.freepik.com'],

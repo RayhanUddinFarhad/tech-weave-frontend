@@ -10,9 +10,15 @@ const Page = () => {
  
 
     return (
-        <MainContent>
-            <CreatePost></CreatePost>
-        </MainContent>
+       <>
+       
+       {
+        typeof window !== 'undefined' &&  <MainContent>
+        <CreatePost></CreatePost>
+    </MainContent>
+       }
+       
+       </>
     );
 };
 
