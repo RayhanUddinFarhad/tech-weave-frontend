@@ -1,44 +1,55 @@
+'use client'
+import usePosts from '@/hooks/usePosts';
+import moment from 'moment';
+import Link from 'next/link';
 import React from 'react';
 
 const Featured = () => {
-    const posts = [
-        {
-            title: "What is SaaS? Software as a Service Explained",
-            desc: "Going into this journey, I had a standard therapy regimen, based on looking at the research literature. After I saw the movie, I started to ask other people what they did for their anxiety, and some",
-            img: "https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-            authorLogo: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-            authorName: "Sidi dev",
-            date: "Jan 4 2022",
-            href: "javascript:void(0)"
-        },
-        {
-            title: "A Quick Guide to WordPress Hosting",
-            desc: "According to him, â€œI'm still surprised that this has happened. But we are surprised because we are so surprised.â€More revelations about Whittington will be featured in the film",
-            img: "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-            authorLogo: "https://api.uifaces.co/our-content/donated/FJkauyEa.jpg",
-            authorName: "Micheal",
-            date: "Jan 4 2022",
-            href: "javascript:void(0)"
-        },
-        {
-            title: "7 Promising VS Code Extensions Introduced in 2022",
-            desc: "I hope I remembered all the stuff that they needed to know. They're like, 'okay,' and write it in their little reading notebooks. I realized today that I have all this stuff that",
-            img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-            authorLogo: "https://randomuser.me/api/portraits/men/46.jpg",
-            authorName: "Luis",
-            date: "Jan 4 2022",
-            href: "javascript:void(0)"
-        },
-        {
-            title: "How to Use Root C++ Interpreter Shell to Write C++ Programs",
-            desc: "The powerful gravity waves resulting from the impact of the planets' moons â€” four in total â€” were finally resolved in 2015 when gravitational microlensing was used to observe the",
-            img: "https://images.unsplash.com/photo-1617529497471-9218633199c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-            authorLogo: "https://api.uifaces.co/our-content/donated/KtCFjlD4.jpg",
-            authorName: "Lourin",
-            date: "Jan 4 2022",
-            href: "javascript:void(0)"
-        }
-    ]
+    // const posts = [
+    //     {
+    //         title: "What is SaaS? Software as a Service Explained",
+    //         desc: "Going into this journey, I had a standard therapy regimen, based on looking at the research literature. After I saw the movie, I started to ask other people what they did for their anxiety, and some",
+    //         img: "https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    //         authorLogo: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
+    //         authorName: "Sidi dev",
+    //         date: "Jan 4 2022",
+    //         href: "javascript:void(0)"
+    //     },
+    //     {
+    //         title: "A Quick Guide to WordPress Hosting",
+    //         desc: "According to him, â€œI'm still surprised that this has happened. But we are surprised because we are so surprised.â€More revelations about Whittington will be featured in the film",
+    //         img: "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    //         authorLogo: "https://api.uifaces.co/our-content/donated/FJkauyEa.jpg",
+    //         authorName: "Micheal",
+    //         date: "Jan 4 2022",
+    //         href: "javascript:void(0)"
+    //     },
+    //     {
+    //         title: "7 Promising VS Code Extensions Introduced in 2022",
+    //         desc: "I hope I remembered all the stuff that they needed to know. They're like, 'okay,' and write it in their little reading notebooks. I realized today that I have all this stuff that",
+    //         img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    //         authorLogo: "https://randomuser.me/api/portraits/men/46.jpg",
+    //         authorName: "Luis",
+    //         date: "Jan 4 2022",
+    //         href: "javascript:void(0)"
+    //     },
+    //     {
+    //         title: "How to Use Root C++ Interpreter Shell to Write C++ Programs",
+    //         desc: "The powerful gravity waves resulting from the impact of the planets' moons â€” four in total â€” were finally resolved in 2015 when gravitational microlensing was used to observe the",
+    //         img: "https://images.unsplash.com/photo-1617529497471-9218633199c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    //         authorLogo: "https://api.uifaces.co/our-content/donated/KtCFjlD4.jpg",
+    //         authorName: "Lourin",
+    //         date: "Jan 4 2022",
+    //         href: "javascript:void(0)"
+    //     }
+    // ]
+
+
+
+    const [posts] = usePosts()
+
+
+    const approvedPosts = posts.filter (post => post.status == 'approved')
     return (
         <section className="mt-12 mx-auto px-4 max-w-screen-xl md:px-8">
             <div className="text-left">
@@ -49,22 +60,26 @@ const Featured = () => {
             </div>
             <div className="mt-12 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {
-                    posts.map((items, key) => (
+                    approvedPosts?.slice(0,6).map((items, key) => (
                         <>
-                            <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
+                            <div key={approvedPosts?._id} className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
                                 <div className="flex space-x-4">
-                                    <img alt="" src={items.authorLogo} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
+                                    <img alt="" src={items.photo} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
                                     <div className="flex flex-col space-y-1">
-                                        <a rel="noopener noreferrer" href="#" className="text-sm font-semibold">{items.authorName}</a>
-                                        <span className="text-xs dark:text-gray-400">{items.date}</span>
+                                        <a rel="noopener noreferrer" href="#" className="text-sm font-semibold">{items.name}</a>
+                                        <span className="text-xs dark:text-gray-400"> {moment(items?.created_at).format('D-MM-yy')}</span>
                                     </div>
                                 </div>
                                 <div>
-                                    <img src={items.img} alt="" className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500" />
+                                    <img src={items.postImage} alt="" className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500" />
                                     <h2 className="mb-1 text-xl font-semibold">{items.title}</h2>
-                                    <p className="text-sm dark:text-gray-400">Eu qualisque aliquando mel, id lorem detraxit nec, ad elit minimum pri. Illum ipsum detracto ne cum. Mundi nemore te ius, vim ad illud atqui apeirian...</p>
+
+                                    <div className='badge badge-info text-white my-5 flex justify-center mx-auto'>{items?.category}</div> 
+
+                                    <p className="text-sm dark:text-gray-400 whitespace-pre-line">{items.description.slice(0, 150)}... <Link className='btn-link' href={`/posts/${items._id}`}>Read More</Link> 
+                          ...</p>
                                 </div>
-                                <div className="flex flex-wrap justify-between">
+                                {/* <div className="flex flex-wrap justify-between">
                                     <div className="space-x-2">
                                         <button aria-label="Share this post" type="button" className="p-2 text-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current dark:text-violet-400">
@@ -93,7 +108,7 @@ const Featured = () => {
                                             <span>283</span>
                                         </button>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
                         </>

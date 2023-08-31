@@ -7,7 +7,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const LogIn = () => {
-    const {logIn} = useContext(AuthContext)
+    const {logIn, googleLogin} = useContext(AuthContext)
     const [error, setError] = useState('')
     const router = useRouter()
 
@@ -49,13 +49,45 @@ const handleSubmitLogIn = (data) => {
 
 }
 
+const handleGoogleLogin = () => {
+
+
+    googleLogin()
+        .then(res => {
+
+            const user = res.user
+
+
+            axios.post(`https://tech-weave-backend.onrender.com/users`, {
+                name: user?.displayName,
+                photo: user?.photoURL,
+                email: user?.email
+            })
+                .then(res => {
+                    console.log(res);
+                    router.push('/')
+                })
+                .catch(err => {
+                    console.log(err);
+                    setError(err?.message)
+                })
+
+        })
+        .catch(err => {
+
+            console.log(err.message);
+            setError(err?.message)
+        })
+
+
+}
+
 
 
     return (
         <main className="w-full h-screen flex flex-col items-center justify-center px-4">
             <div className="max-w-sm w-full text-gray-600">
                 <div className="text-center">
-                    <img src="https://floatui.com/logo.svg" width={150} className="mx-auto" />
                     <div className="mt-5 space-y-2">
                         <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Sign up</h3>
                         <p className="">{`Don't`} have an account? <Link href="/sign-in" className="font-medium text-indigo-600 hover:text-indigo-500">Create an account</Link></p>
@@ -74,7 +106,7 @@ const handleSubmitLogIn = (data) => {
                             required
                             {...register('email')}
 
-                            className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                            className="w-full  mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-red-400 focus:border-indigo-600 shadow-sm rounded-lg"
                         />
                     </div>
                     <p className='text-error'>{error}</p>
@@ -99,7 +131,7 @@ const handleSubmitLogIn = (data) => {
                                 })}
 
 
-                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-red-400 focus:border-indigo-600 shadow-sm rounded-lg"
                             />
                             {errors.password && <p className='text-error'>{errors.password.message}</p>}
                     </div>
@@ -109,7 +141,7 @@ const handleSubmitLogIn = (data) => {
                         Log in
                     </button>
                 </form>
-                <button className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100">
+                <button onClick={() => handleGoogleLogin()} className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100">
                     <svg className="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_17_40)">
                             <path d="M47.532 24.5528C47.532 22.9214 47.3997 21.2811 47.1175 19.6761H24.48V28.9181H37.4434C36.9055 31.8988 35.177 34.5356 32.6461 36.2111V42.2078H40.3801C44.9217 38.0278 47.532 31.8547 47.532 24.5528Z" fill="#4285F4" />

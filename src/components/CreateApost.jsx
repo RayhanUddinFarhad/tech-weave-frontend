@@ -20,7 +20,7 @@ const CreateApost = () => {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'You are not logged in. Log In to Create your post',
-                footer: '<a href="/log-in">Log In Now</a>'
+                footer: '<Link href="/log-in">Log In Now</Link>'
             });
         }
     };

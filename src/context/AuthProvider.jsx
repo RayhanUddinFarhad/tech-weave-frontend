@@ -13,6 +13,8 @@ const provider = new GoogleAuthProvider();
 const AuthProvider = ({children}) => {
 
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true);
+
 
 
 
@@ -21,6 +23,7 @@ const AuthProvider = ({children}) => {
 
 
     const signUp = (email, password) => {
+        setLoading(true)
         
 
         return createUserWithEmailAndPassword(auth, email, password)
@@ -29,6 +32,7 @@ const AuthProvider = ({children}) => {
     }
 
     const googleLogin = () => {
+        setLoading(true)
         
 
 
@@ -37,12 +41,13 @@ const AuthProvider = ({children}) => {
     }
 
     const logOut = () => {
-        
+        setLoading(true)
 
         return signOut(auth)
     }
 
     const logIn = (email, password) => {
+        setLoading(true)
 
         
 
@@ -55,6 +60,7 @@ const AuthProvider = ({children}) => {
     }
 
     const updateUserProile = (name, photo) => {
+        setLoading (true)
 
 
         return updateProfile(auth.currentUser , {
@@ -74,6 +80,7 @@ const AuthProvider = ({children}) => {
 
 
             setUser(currentUser)
+            setLoading(false)
 
 
            
@@ -99,7 +106,8 @@ const AuthProvider = ({children}) => {
         googleLogin,
         logOut,
         logIn,
-        updateUserProile
+        updateUserProile,
+        loading
     }
 
 

@@ -3,6 +3,7 @@ import moment from 'moment';
 import Image from 'next/image';
 import React from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
+
 async function getData(id) {
     const res = await fetch(`https://tech-weave-backend.onrender.com/post/${id}`, { cache: 'no-store' })
     

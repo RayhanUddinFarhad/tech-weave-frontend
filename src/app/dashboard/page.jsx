@@ -1,22 +1,17 @@
-'use client'
 import Dashboard from '@/components/dashboard/Dashboard';
-import MainContent from '@/components/dashboard/MainContent';
-import Link from 'next/link';
-import React from 'react';
+import { AuthContext } from '@/context/AuthProvider';
+import React, { useContext } from 'react';
 
 const page = () => {
 
    
-
     
     return (
 
         <>
 
-        {
-            typeof window !== 'undefined' && <Dashboard></Dashboard>
-
-        }
+        
+<Dashboard></Dashboard>     
         
         </>
     );

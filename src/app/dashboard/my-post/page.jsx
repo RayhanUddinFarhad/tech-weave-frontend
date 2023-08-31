@@ -7,13 +7,10 @@ const page = () => {
     return (
         <>
         
-        {
-            typeof window !== 'undefined' && <MainContent>
-
+        
 
             <MyPosts></MyPosts>
-        </MainContent>
-        }
+        
         </>
     );
 };

@@ -21,12 +21,7 @@ const Navbar = () => {
 
 
 
-    const navigation = [
-        { title: "Home", path: "/" },
-        { title: "Blog", path: "" },
-        { title: "About Us", path: "" },
-        { title: "Dashboard", path: "/dashboard/home" }
-    ]
+    
 
     useEffect(() => {
         document.onclick = (e) => {
@@ -75,8 +70,8 @@ const Navbar = () => {
                         </li>
 
                         {
-                            user && <li className={(pathname === '/dashboard/admin-home' || pathname === '/dashboard/user-home') ? "border-red-500 border-b-4" : "text-gray-700 hover:text-gray-900"}>
-                            <Link href={`${isAdmin?.role === 'admin' ? '/dashboard/admin-home' : '/dashboard/user-home'}`} className="block">
+                            user && <li className={(pathname === '/dashboard') ? "border-red-500 border-b-4" : "text-gray-700 hover:text-gray-900"}>
+                            <Link href='/dashboard' className="block">
                                 Dashboard
                             </Link>
                         </li>

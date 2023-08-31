@@ -12,11 +12,8 @@ const Page = () => {
     return (
        <>
        
-       {
-        typeof window !== 'undefined' &&  <MainContent>
-        <CreatePost></CreatePost>
-    </MainContent>
-       }
+               <CreatePost></CreatePost>
+    
        
        </>
     );

@@ -20,7 +20,7 @@ import { AuthContext } from '@/context/AuthProvider'
 
 export default function Home() {
   return (
-    <main className='space-y-10 relative'>
+    <main className='space-y-10 relative overflow-x-hidden'>
 
       <HeroSection></HeroSection>
       <Category></Category>

@@ -7,12 +7,10 @@ const page = () => {
     return (
         <>
 
-        {
-            typeof window !== 'undefined' && <MainContent>
+       
             <ManageUsers></ManageUsers>
 
-        </MainContent>
-        }
+        
         
         
         </>
