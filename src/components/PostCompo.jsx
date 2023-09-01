@@ -1,125 +1,162 @@
 'use client'
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import PostCard from './PostCard';
+import { FaBookmark, FaCalendarAlt, FaCheck, FaCopy, FaFacebook, FaLinkedinIn, FaRegBookmark, FaRegCheckSquare, FaRegCopy, FaTwitter } from 'react-icons/fa';
+import axios from 'axios';
+import moment from 'moment';
+import { AuthContext } from '@/context/AuthProvider';
+import Swal from 'sweetalert2';
+import useBookMark from '@/hooks/useBookMark';
+import { FacebookIcon, LinkedinShareButton, TwitterShareButton } from 'react-share';
 
-const PostCompo = () => {
-    const [posts, refetch] = usePosts()
-  const [tabIndex, setTabIndex] = useState(0);
+
+
+const PostCompo = ({ data }) => {
+
+  const { user } = useContext(AuthContext)
+  const [IsBookmark, setBookmark] = useState(false)
+  const [bookmark, refetch] = useBookMark()
+  const [status, setStatus] = useState('')
+  const [isCopied, setIsCopied] = useState(false);
+
+
+  
+  // const handleBookmark = () => {
+
+  //   axios.post(`https://tech-weave-backend.onrender.com/bookmark`, {
+  //   id : data?._id,
+  //   email: user?.email,
+  //   title: data?.title,
+  //   description: data?.description,
+  //   category: data?.category,
+  //   postImage: data?.postImage,
+
+
+
+
+
+  // })
+  //   .then(res => {
+  //     console.log(res);
+  //     // Swal.fire(
+  //     //   'Good job!',
+  //     //   'Your Post has been successfully uploaded! Wait for approve',
+  //     //   'success'
+  //     // )
+  //     setBookmark(true)
+  //     setStatus(res.status)
+  //     refetch()
+  //   })
+  //   .catch(error => {
+  //     console.log(error.message);
+
+  //   })
+  // }
 
 
   
 
-  const webDevelopment = posts.filter (post => post.category == 'Web Development' && post.status == 'approved')
-  const machineLearning = posts.filter (post => post.category == 'Machine Learning' && post.status == 'approved')
-  const language = posts.filter (post => post.category == 'Programming Language' && post.status == 'approved')
-  const career = posts.filter (post => post.category == 'Programming Career' && post.status == 'approved')
-  const Motivational = posts.filter (post => post.category == 'Motivational' && post.status == 'approved')
+  // useEffect(() => {
+  //   const bookmarked = bookmark.find((bookmarkItem) => bookmarkItem?.id == data?._id);
+  //   if (bookmarked) {
+  //     setBookmark(true);
+  //   } else {
+  //     setBookmark(false);
+  //   }
+  // }, [bookmark, data]);
 
 
-  const [input, setInput] = useState('')
-  const [allpost, setAllPost] = useState([])
+  const shareUrl = encodeURIComponent('https://tech-weave.vercel.app/');
+  const title = encodeURIComponent(data?.title);
+  const imageUrl = encodeURIComponent(data?.postImage); // Replace with your post image URL
 
+  
+  // Facebook Share Link
+  const facebookShareLink = `https://www.facebook.com/sharer.php?u=${shareUrl}&picture=${imageUrl}`;
+  
+  // Twitter Share Link
+  const twitterShareLink = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${title}&media=${imageUrl}`;
 
+  
+  // LinkedIn Share Link
+  const linkedinShareLink = `https://www.linkedin.com/shareArticle?url=${shareUrl}&title=${title}&source=${imageUrl}`;
 
-  useEffect(() => {
-    axios
-      .get(`https://tech-weave-backend.onrender.com/search/${input}`)
-      .then(res => {
-        console.log(res);
-        setAllPost(res.data); // Update this line to store only the data
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [input]);
-
-
-
-
-
-
-
+  const copyToClipboard =  () => {
+    try {
+       navigator.clipboard.writeText(`https://tech-weave.vercel.app/posts/${data?._id}`); // Replace with your actual post URL
+      setIsCopied(true);
+    } catch (error) {
+      console.error('Error copying to clipboard:', error);
+    }
+  };
 
   return (
     <>
 
-      <div>
-        <div style={{ background: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80) no-repeat center', backgroundSize: 'cover' }}
-          className="py-40 my-10 px-1 md:px-8 text-center relative text-white font-bold text-2xl md:text-3xl overflow-auto">
-          <h1 className="pb-4">Search for blogs</h1>
-          <div className="w-11/12 md:w-3/4 lg:max-w-3xl m-auto">
-            <div className="relative z-30 text-base text-black">
-              <form  >
-              <input type="text"   value={input} onInput={e => setInput(e.target.value)}placeholder="Search" className="mt-2 shadow-md focus:outline-none rounded-2xl py-3 px-6 block w-full"></input>
-              </form>
+      <div className='mx-auto w-full space-y-10'>
+        <div className='badge badge-info text-white flex justify-center mx-auto'>{data?.category}</div>
+
+        <h1 className='text-center mx-auto text-4xl max-w-screen-lg font-bold'>{data?.title}</h1>
+
+        <div className='mx-auto flex justify-center space-x-4 items-center'>
+
+          <img className='object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500 ' src={data?.photo} alt="" />
+          <p className='text-lg font-bold'>{data?.name}</p>
+          <p className='flex items-center'> <FaCalendarAlt className='mr-3'></FaCalendarAlt>
+            <small>{moment(data?.created_at).format('D-MM-yy')}</small></p>  
+               
+                 </div>
+                 <div>
+
+                 <div className='max-w-screen-md flex items-center  border-gray-200 justify-evenly mx-auto'>
 
 
-              <div
-                className="text-left absolute top-10 rounded-t-none rounded-b-2xl shadow bg-white divide-y w-full max-h-40 overflow-auto">
-              </div>
-            </div>
-          </div>
+          
+ <div>
+
+ {/* {
+  IsBookmark ? <FaBookmark className='text-red-500 text-2xl'></FaBookmark> : <FaRegBookmark onClick={() => handleBookmark()} className={`text-2xl cursor-pointer`}></FaRegBookmark> 
+ } */}
+
+ </div>
+
+<div className='social-media-share-buttons flex justify-center items-center space-x-5'>
+<a href={facebookShareLink} target="_blank" rel="noopener noreferrer" className='btn btn-circle '>
+
+  <FaFacebook className='text-3xl text-indigo-500'></FaFacebook>
+</a>
+    <a href={twitterShareLink} target="_blank" rel="noopener noreferrer" className='btn btn-circle'>
+      <FaTwitter className='text-3xl text-indigo-500'></FaTwitter>
+    </a>
+    <a href={linkedinShareLink} target="_blank" rel="noopener noreferrer"  className='btn btn-circle'>
+
+      <FaLinkedinIn className='text-3xl text-indigo-500'></FaLinkedinIn>
+    </a>
+
+    <button onClick={copyToClipboard}>
+    {isCopied ? <FaRegCheckSquare  className='text-3xl ' /> : <FaRegCopy  className='text-3xl ' />}
+      </button>
+
+
+         
         </div>
 
+</div>
+
+                 </div>
 
 
+        <img src={data?.postImage} alt="" className='max-w-screen-lg max-h-96 mx-auto' />
 
 
-        <Tabs selectedTabClassName='button-secondary h-full rounded-xl ' selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-
-          <TabList className='border-0 mx-auto grid lg:grid-cols-6 grid-cols-3 justify-center max-w-screen-sm mb-10 text-lg space-x-5 gap-5 p-8'>
-
-            <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'>All Blogs</Tab>
-            <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'>Web Dev</Tab>
-            <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'>Machine Learning</Tab>
-            <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'> Languages</Tab>
-            <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full text-center'> Career</Tab>
-            <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full text-center'>Motivation</Tab>
-          </TabList>
+        <p className='whitespace-pre-line  max-w-screen-lg mx-auto' >
 
 
+          {data?.description}
+        </p>
 
-
-
-
-          <TabPanel>
-            {
-
-              allpost?.map (post => <PostCard post={post} key={post?._id}></PostCard>)
-            }
-          </TabPanel>
-          <TabPanel>
-
-          {
-
-webDevelopment?.map (post => <PostCard post={post} key={post?._id}></PostCard>)
-}
-
-          </TabPanel>
-          <TabPanel>
-          {
-
-machineLearning?.map (post => <PostCard post={post} key={post?._id}></PostCard>)
-
-}          </TabPanel>
-          <TabPanel>
-          {
-
-language?.map (post => <PostCard post={post} key={post?._id}></PostCard>)
-
-}              </TabPanel>
-          <TabPanel>
-          {
-
-career?.map (post => <PostCard post={post} key={post?._id}></PostCard>)
-}          </TabPanel>
-          <TabPanel>
-          {
-
-Motivational?.map (post => <PostCard post={post} key={post?._id}></PostCard>)
-}                    </TabPanel>
-        </Tabs>
+        
       </div>
     </>)
 };

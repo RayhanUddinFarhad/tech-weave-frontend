@@ -1,12 +1,14 @@
 'use client'
 
 import { AuthContext } from '@/context/AuthProvider';
+import useBookMark from '@/hooks/useBookMark';
 import useIsAdmin from '@/hooks/useIsAdmin';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react';
-import { FaCode } from 'react-icons/fa';
+import { FaBookmark, FaCode } from 'react-icons/fa';
+
 
 const Navbar = () => {
 
@@ -15,12 +17,13 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
     const pathname = usePathname()
+    const [bookmarklength, setBookmarklength] = useState()
 
 
 
+const [bookmark, refetch] = useBookMark()
 
 
-    
 
     useEffect(() => {
         document.onclick = (e) => {
@@ -78,6 +81,19 @@ const Navbar = () => {
 
                     </ul>
                     <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
+
+
+                        {/* {
+                            user && <>
+                            
+                            
+                    <div className="indicator">
+        <Link href='/bookmark'>
+        
+        <FaBookmark className='text-xl text-red-500'></FaBookmark></Link>
+          <span className="badge  badge-info text-white badge-sm  indicator-item">{bookmark?.length}</span>
+        </div></>
+                        } */}
 
 
                         {

@@ -3,8 +3,12 @@ import React from 'react';
 
 const loading = () => {
     return (
-        <Loading></Loading>
-    );
+<Loading>
+    
+</Loading>
+
+
+);
 };
 
 export default loading;
