@@ -2,21 +2,78 @@
 import { AuthContext } from '@/context/AuthProvider';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { FaArrowLeft, FaChartLine, FaFile, FaListAlt, FaPen, FaUsers } from "react-icons/fa";
 import useIsAdmin from '@/hooks/useIsAdmin';
+import axios from 'axios';
 
 // define "lord-icon" custom element with default properties
 
 const MainContent = () => {
-    const { user } = useContext(AuthContext)
+    const { user, loading } = useContext(AuthContext)
     const pathname = usePathname()
 
-    const [isAdmin, isLoading] = useIsAdmin()
-    console.log(isAdmin.role);
 
 
+    const [admin, setAdmin] = useState(null)
+
+    useEffect(() => {
+        if (!user) {
+          return;
+        }
+      
+        fetch(`https://tech-weave-backend.onrender.com/admin/${user?.email}`)
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Response from /admin/:email:", data);
+            setAdmin(data.role);
+          })
+          .catch((error) => {
+            console.error("Error fetching role:", error);
+          });
+      }, [user]);
+      
+    
+  
+
+    
+
+console.log(admin);
+
+
+
+
+    // const [isAdminRole, isAdminLoading] = useIsAdmin()
+
+    // console.log(isAdminRole);
+    
+
+
+    
+    
+    // const [isAdminRole, setIsAdminRole] = useState(null);
+
+    // useEffect(() => {
+    //   if (!user) {
+    //     return;
+    //   }
+  
+    //   // Fetch user role using axios
+    //   axios
+    //     .get(`https://tech-weave-backend.onrender.com/admin/${user.email}`)
+    //     .then((response) => {
+    //       setIsAdminRole(response.data.role); // Assuming the server returns { role: "admin" } or null
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //       setIsAdminRole(null); // Set role to null in case of an error
+    //     });
+    // }, [user]); // Add 'user' to the dependency array
+  
+    // if (isAdminRole === null || loading) {
+    //   return <p>Loading...</p>; // Display a loading indicator while fetching
+    // }
     
 
 
@@ -47,7 +104,7 @@ const MainContent = () => {
                 </li>
 
                 {
-                    isAdmin?.role ==  'admin' && <>
+                    admin == 'admin' && <>
                     
                     <li className={pathname === '/dashboard/admin-posts' ? 'bg-[#8f6dff] text-gray-100 border-r-8 border-gray-200 flex  p-2' : 'flex '}>
                         <Link href='/dashboard/admin-posts'>

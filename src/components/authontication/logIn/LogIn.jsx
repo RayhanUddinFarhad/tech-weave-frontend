@@ -29,7 +29,7 @@ const handleSubmitLogIn = (data) => {
 
         axios.post(`https://tech-weave-backend.onrender.com/users`, {
             name : data?.name,
-            email : data?.email
+            email: data?.email.toLowerCase() // Convert the email to lowercase here
         })
         .then (res => {
             console.log(res);
@@ -61,7 +61,7 @@ const handleGoogleLogin = () => {
             axios.post(`https://tech-weave-backend.onrender.com/users`, {
                 name: user?.displayName,
                 photo: user?.photoURL,
-                email: user?.email
+                email: user?.email.toLowerCase() // Convert the email to lowercase here
             })
                 .then(res => {
                     console.log(res);

@@ -4,6 +4,7 @@ import moment from 'moment';
 import Link from 'next/link';
 import React from 'react';
 
+
 const Featured = () => {
     // const posts = [
     //     {
@@ -60,9 +61,9 @@ const Featured = () => {
             </div>
             <div className="mt-12 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {
-                    approvedPosts?.slice(0,6).map((items, key) => (
+                    approvedPosts?.slice(0,6).map((items) => (
                         <>
-                            <div key={approvedPosts?._id} className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
+                            <div  data-aos="fade-up"     data-aos-duration="1000" key={approvedPosts?._id} className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
                                 <div className="flex space-x-4">
                                     <img alt="" src={items.photo} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
                                     <div className="flex flex-col space-y-1">
@@ -72,7 +73,9 @@ const Featured = () => {
                                 </div>
                                 <div>
                                     <img src={items.postImage} alt="" className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500" />
-                                    <h2 className="mb-1 text-xl font-semibold">{items.title}</h2>
+                                   <Link href= {`/posts/${items?._id}`}>
+                                   
+                                   <h2 className="mb-1 text-xl font-semibold hover:underline hover:text-indigo-500">{items.title}</h2></Link>
 
                                     <div className='badge badge-info text-white my-5 flex justify-center mx-auto'>{items?.category}</div> 
 

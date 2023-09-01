@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+
 const BestAuthor = () => {
     const team = [
         {
@@ -48,7 +49,7 @@ const BestAuthor = () => {
         },
     ]
     return (
-        <section className="py-14">
+        <section className="py-14" data-aos="fade-up"     data-aos-duration="3000">
             <div className="max-w-screen-xl mx-auto px-4 md:px-8">
                 <div className="max-w-xl">
                     <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">

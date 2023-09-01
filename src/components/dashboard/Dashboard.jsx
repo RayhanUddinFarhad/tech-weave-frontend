@@ -7,13 +7,11 @@ import AdminDashboard from './adminDashboard/AdminDashboard';
 
 const Dashboard = () => {
 
-    const [isAdmin] = useIsAdmin()
+    const isAdmin = useIsAdmin()
     return (
         <>
-{
-    isAdmin?.role === 'admin' ? <AdminDashboard></AdminDashboard> : <UserDashboard></UserDashboard>
-}
-        
+<UserDashboard></UserDashboard>
+
         </>
     );
 };

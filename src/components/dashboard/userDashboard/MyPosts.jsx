@@ -82,7 +82,7 @@ const MyPosts = () => {
                                         <td className="px-6 py-4 whitespace-nowrap">{item?.category}</td>
                                         <td className="pr-6 py-4 whitespace-nowrap">
                                         <span className={`px-3 py-2 rounded-full font-semibold text-xs ${item.status == "approved" ? "text-green-600 bg-green-50"  : "text-white bg-red-400"} `}>
-                                            {item.status}
+                                            {item?.status}
                                         </span>
                                     </td>
                                         <td className="px-6 py-4 whitespace-nowrap">

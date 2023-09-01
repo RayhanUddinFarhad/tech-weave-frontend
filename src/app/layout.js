@@ -4,12 +4,15 @@ import { Inter } from 'next/font/google'
 import Footer from '@/components/shared/Footer'
 import AuthProvider from '@/context/AuthProvider'
 import ReactQueryProvider from './ReactQueryProvider'
-
+// You can also use <link> for styles
+// ..
+// ..
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Create Next App',
+  title: 'TechWeave',
+  
 }
 
 export default function RootLayout({ children }) {

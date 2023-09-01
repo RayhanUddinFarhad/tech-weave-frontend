@@ -1,7 +1,9 @@
 'use client'
 import usePosts from '@/hooks/usePosts';
+
 import Link from 'next/link';
 import React from 'react';
+
 
 const Trending = () => {
     // const posts = [
@@ -58,7 +60,7 @@ const Trending = () => {
             <div className="mt-12 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {
                     approvedPosts?.slice(7,13).map((items, key) => (
-                        <article className="max-w-md mx-auto mt-4 shadow-lg border rounded-lg duration-300 hover:shadow-sm" key={items?._id}>
+                        <article data-aos="fade-down"     data-aos-duration="1000" className="max-w-md mx-auto mt-4 shadow-lg border rounded-lg duration-300 hover:shadow-sm" key={items?._id}>
                             <Link href={`/posts/${items._id}`} >
                                 <img src={items.postImage} loading="lazy" alt={items.title}  className="w-full h-48 rounded-t-md" />
                                 <div className="flex items-center mt-2 pt-3 ml-4 mr-2">
@@ -71,9 +73,9 @@ const Trending = () => {
                                     </div>
                                 </div>
                                 <div className="pt-3 ml-4 mr-2 mb-3">
-                                    <h3 className="text-xl text-gray-900">
-                                        {items.title}
-                                    </h3>
+                                <Link href= {`/posts/${items?._id}`}>
+                                   
+                                   <h2 className="mb-1 text-xl font-semibold hover:underline hover:text-indigo-500">{items.title}</h2></Link>
                                     <div className='badge badge-info text-white my-5 flex justify-center mx-auto'>{items?.category}</div> 
                                     <p className="text-gray-400 text-sm mt-1 whitespace-pre-line">{items?.description.slice(0, 250)}... <Link className='btn-link' href={`/posts/${items?._id}`}>Read More</Link>...</p>
                                 </div>

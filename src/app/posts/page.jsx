@@ -1,10 +1,8 @@
-'use client'
 
 import Post from "@/components/Post";
 
 
 
- 
 const PostPage = () => {
   return (
 
