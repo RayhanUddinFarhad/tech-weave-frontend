@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import PostCard from './PostCard';
 import axios from 'axios';
+import Loading from './Loading';
 
 
 const Post = () => {
-  const [posts, refetch] = usePosts()
+  const [posts, refetch, postLoading] = usePosts()
   const [tabIndex, setTabIndex] = useState(0);
 
 
@@ -37,7 +38,9 @@ const Post = () => {
   }, [input]);
 
 
-
+if (postLoading) {
+  return <Loading></Loading>
+}
 
 
 
@@ -72,7 +75,7 @@ const Post = () => {
 
           <TabList className='border-0 mx-auto grid lg:grid-cols-6 grid-cols-3 justify-center max-w-screen-sm mb-10 text-lg space-x-5 gap-5 p-8'>
 
-            <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'>All Blogs</Tab>
+            <Tab className=' border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'>All Blogs</Tab>
             <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'>Web Dev</Tab>
             <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'>Machine Learning</Tab>
             <Tab className='border rounded-xl p-2 border-indigo-400 text-xs cursor-pointer w-full'> Languages</Tab>

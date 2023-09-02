@@ -9,7 +9,7 @@ const useMyPost = () => {
 
 
 
-    const { isLoading, error, data : myposts = [], refetch } = useQuery({
+    const { isLoading : dataloading, error, data : myposts = [], refetch } = useQuery({
         queryKey: ['myposts'],
         queryFn: () =>
           fetch(`https://tech-weave-backend.onrender.com/${user?.email}`).then(
@@ -18,7 +18,7 @@ const useMyPost = () => {
       })
 
 
-      return [myposts, refetch]
+      return [myposts, refetch, dataloading]
 };
 
 export default useMyPost;

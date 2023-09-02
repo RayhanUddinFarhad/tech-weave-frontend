@@ -89,7 +89,7 @@ const handleGoogleLogin = () => {
             <div className="max-w-sm w-full text-gray-600">
                 <div className="text-center">
                     <div className="mt-5 space-y-2">
-                        <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Sign up</h3>
+                        <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log In</h3>
                         <p className="">{`Don't`} have an account? <Link href="/sign-in" className="font-medium text-indigo-600 hover:text-indigo-500">Create an account</Link></p>
                     </div>
                 </div>

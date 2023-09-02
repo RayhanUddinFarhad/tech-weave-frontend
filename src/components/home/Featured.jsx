@@ -3,6 +3,7 @@ import usePosts from '@/hooks/usePosts';
 import moment from 'moment';
 import Link from 'next/link';
 import React from 'react';
+import Loading from '../Loading';
 
 
 const Featured = () => {
@@ -47,10 +48,15 @@ const Featured = () => {
 
 
 
-    const [posts] = usePosts()
+    const [posts, postLoading] = usePosts()
+
+
+    
 
 
     const approvedPosts = posts.filter (post => post.status == 'approved')
+
+
     return (
         <section className="mt-12 mx-auto px-4 max-w-screen-xl md:px-8">
             <div className="text-left">
