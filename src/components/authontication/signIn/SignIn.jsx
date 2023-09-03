@@ -138,7 +138,7 @@ const SignIn = () => {
             <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
                 <div className="text-center">
                     <div className="mt-5 space-y-2">
-                        <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Sign in to your account</h3>
+                        <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Sign up to your account</h3>
                         <p className="">Already have an account? <Link href="/log-in" className="font-medium text-indigo-600 hover:text-indigo-500">Log In</Link></p>
                     </div>
                 </div>
@@ -238,7 +238,7 @@ const SignIn = () => {
                                 Password
                             </label>
                             <input
-                                type={isPasswordHidden ? `text` : `password`}
+                                type='password'
                                 required
                                 {...register('password', {
                                     required: "Password is required",
@@ -261,7 +261,7 @@ const SignIn = () => {
                         <button
                             className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                         >
-                            Sign in
+                            Sign up
                         </button>
                     </form>
                 </div>
